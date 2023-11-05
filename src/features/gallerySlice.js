@@ -12,22 +12,38 @@ const gallerySlice = createSlice({
       state.images.push(action.payload); // Add a new image
     },
     removeImage: (state, action) => {
-      state.images = state.images.filter((image) => image !== action.payload); // Remove an image
-      state.selectedImages = state.selectedImages.filter(
-        (image) => image !== action.payload
-      ); // Remove selected image, if applicable
+      const imagesToDelete = action.payload;
+      console.log(imagesToDelete);
+      // Remove images from state.images array
+      state.images = state.images.filter((image) => {
+        return !imagesToDelete.includes(image.id);
+      });
+
+      // Remove selected images from state.selectedImages array
+      state.selectedImages = [];
     },
-    selectImage: (state, action) => {
-      if (!state.selectedImages.includes(action.payload)) {
-        state.selectedImages.push(action.payload); // Select an image
-      } else {
+    selectImage(state, action) {
+      const { imageId } = action.payload;
+      const isSelected = state.selectedImages.includes(imageId);
+
+      if (isSelected) {
         state.selectedImages = state.selectedImages.filter(
-          (image) => image !== action.payload
-        ); // Deselect an image
+          (id) => id !== imageId
+        );
+      } else {
+        state.selectedImages.push(imageId);
+      }
+    },
+    bulkSelect(state) {
+      if (state.selectedImages.length === 0) {
+        state.selectedImages = state.images.map((image, index) => image.id); // Select all if none are selected
+      } else {
+        state.selectedImages = []; // Deselect all if some are selected
       }
     },
   },
 });
 
-export const { addImage, removeImage, selectImage } = gallerySlice.actions;
+export const { addImage, removeImage, selectImage, bulkSelect } =
+  gallerySlice.actions;
 export default gallerySlice.reducer;

@@ -7,17 +7,18 @@ import { addImage } from "../features/gallerySlice";
 
 export default function ImageUploader() {
   const dispatch = useDispatch();
-  const [data, setData] = useState();
   const handleChange = (info) => {
     const { file } = info;
-    const localImageUrl = window.URL.createObjectURL(file);
-    const newImage = {
-      imageUrl: localImageUrl,
-      id: uuidv4(), // Generate a unique ID
-    };
-    dispatch(addImage(newImage));
+    const data = new FileReader();
+    data.addEventListener("load", () => {
+      const newImage = {
+        imageUrl: data.result,
+        id: uuidv4(), // Generate a unique ID
+      };
+      dispatch(addImage(newImage));
+    });
+    data.readAsDataURL(file);
   };
-  console.log(data);
   const beforeUpload = (file, fileList) => {
     return false;
   };
@@ -26,7 +27,7 @@ export default function ImageUploader() {
       <Upload
         name="avatar"
         listType="picture-card"
-        className="avatar-uploader w-full"
+        className="avatar-uploader w-full "
         showUploadList={false}
         accept="image/png, image/jpeg, image/webp"
         onChange={handleChange}

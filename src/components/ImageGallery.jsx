@@ -1,76 +1,48 @@
 import React from "react";
-import img1 from "../assets/images/image-1.webp";
-import img2 from "../assets/images/image-2.webp";
-import img3 from "../assets/images/image-3.webp";
-import img4 from "../assets/images/image-4.webp";
-import img5 from "../assets/images/image-5.webp";
-import img6 from "../assets/images/image-6.webp";
-import img7 from "../assets/images/image-7.webp";
-import img8 from "../assets/images/image-8.webp";
-import img9 from "../assets/images/image-9.webp";
-import img10 from "../assets/images/image-10.jpeg";
-import img11 from "../assets/images/image-11.jpeg";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import { Checkbox } from "antd";
+import { selectImage } from "../features/gallerySlice";
 import ImageUploader from "./ImageUploader";
 
 export default function ImageGallery() {
-  const onChange = (e) => {
-    e.stopPropagation();
-    console.log(`checked = ${e.target.checked}`);
+  const images = useSelector((state) => state.gallery?.images);
+  const selectedImages = useSelector((state) => state.gallery?.selectedImages);
+  const dispatch = useDispatch();
+
+  const handleOnSelect = (id, checked) => {
+    dispatch(selectImage({ imageId: id }));
   };
 
   return (
     <div>
-      <div className="grid grid-cols-5 gap-4">
-        <div className="relative group border  col-span-2 row-span-2 ">
-          <div className="absolute -top-5 left-10 h-3 z-50">
-            <Checkbox onChange={onChange}></Checkbox>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        {images.map((item, index) => (
+          <div
+            key={index}
+            className={`relative  border   ${
+              index === 0 ? "col-span-2 row-span-2" : "col-span-1"
+            }`}
+          >
+            <div className="absolute -top-12 lg:-top-5 lg:left-5 h-3 z-50">
+              <Checkbox
+                checked={selectedImages?.includes(item.id)}
+                onChange={(e) => handleOnSelect(item.id, e.target.checked)}
+              ></Checkbox>
+            </div>
+            <img
+              className={`${
+                selectedImages?.includes(item.id) ? "contrast-50" : ""
+              } object-cover`}
+              src={item.imageUrl}
+              alt=""
+            />
+
+            <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
           </div>
-          <img className="object-contain" src={img1} alt="" />
-          <div className="absolute hidden group-hover:block inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img2} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img3} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img4} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img5} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1 ">
-          <img className="object-contain" src={img6} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img7} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img8} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img9} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img10} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
-          <img className="object-contain" src={img11} alt="" />
-          <div className="absolute inset-0 bg-slate-400 w-full h-full opacity-0 transition-opacity duration-300 hover:opacity-70 z-20"></div>
-        </div>
-        <div className="relative border  col-span-1">
+        ))}
+        <div className="relative col-span-1 flex items-center justify-center ">
           <ImageUploader />
         </div>
       </div>
