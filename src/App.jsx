@@ -1,7 +1,5 @@
+import { Layout } from "antd";
 import React from "react";
-import { Button } from "antd";
-import { Layout, Space } from "antd";
-import { Divider } from "antd";
 import ImageGallery from "./components/ImageGallery";
 import TopActionBar from "./components/TopActionBar";
 

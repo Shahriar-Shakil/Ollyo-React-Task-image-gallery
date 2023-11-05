@@ -21,7 +21,7 @@ export default function TopActionBar() {
             checked={selectedImages?.length}
             onChange={handleBulkMark}
             className=""
-            title="unmark all"
+            title={selectedImages?.length ? "Unmark All" : "Mark All"}
           />
           <p className="text-black leading-4 font-bold">
             {selectedImages?.length} Files Selected
