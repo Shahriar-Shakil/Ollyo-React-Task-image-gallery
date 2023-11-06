@@ -54,8 +54,8 @@ export default function ImageItem({ item, index }) {
           ></Checkbox>
         </div>
         <img
-          draggable="true"
-          ref={drag}
+          draggable={index === 0 ? false : true}
+          ref={index === 0 ? null : drag}
           className={`${
             selectedImages?.includes(item.id) ? "contrast-50" : ""
           } object-cover h-full main-content group-hover:brightness-50
