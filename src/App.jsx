@@ -1,7 +1,10 @@
 import { Layout } from "antd";
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import ImageGallery from "./components/ImageGallery";
 import TopActionBar from "./components/TopActionBar";
+import { TouchBackend } from "react-dnd-touch-backend";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -24,7 +27,9 @@ export default function App() {
         <TopActionBar />
       </header>
       <Content style={contentStyle} className="px-10 py-5">
-        <ImageGallery />
+        <DndProvider backend={HTML5Backend}>
+          <ImageGallery />
+        </DndProvider>
       </Content>
     </Layout>
   );

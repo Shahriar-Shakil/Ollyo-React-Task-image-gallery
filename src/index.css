@@ -21,3 +21,6 @@ code {
 .ant-checkbox-inner {
   @apply w-6 h-6 !important;
 }
+.ant-upload {
+  @apply w-full h-full min-h-[100px]  !important;
+}

@@ -41,9 +41,26 @@ const gallerySlice = createSlice({
         state.selectedImages = []; // Deselect all if some are selected
       }
     },
+    swipePosition: (state, action) => {
+      const { indexA, indexB } = action.payload;
+
+      if (
+        indexA < 0 ||
+        indexA >= state.images.length ||
+        indexB < 0 ||
+        indexB >= state.images.length
+      ) {
+        return;
+      }
+
+      [state.images[indexA], state.images[indexB]] = [
+        state.images[indexB],
+        state.images[indexA],
+      ];
+    },
   },
 });
 
-export const { addImage, removeImage, selectImage, bulkSelect } =
+export const { addImage, removeImage, selectImage, bulkSelect, swipePosition } =
   gallerySlice.actions;
 export default gallerySlice.reducer;

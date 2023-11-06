@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Checkbox } from "antd";
 import { selectImage } from "../features/gallerySlice";
 import ImageUploader from "./ImageUploader";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+
 import ImageItem from "./ImageItem";
+import { useDrop } from "react-dnd";
+
 export default function ImageGallery() {
   const images = useSelector((state) => state.gallery?.images);
 

@@ -12,6 +12,7 @@
     "react": "^17.0.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
+    "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.4",
     "redux-persist": "^6.0.0",
