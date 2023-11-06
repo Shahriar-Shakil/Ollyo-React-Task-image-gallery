@@ -38,12 +38,14 @@ export default function ImageItem({ item, index }) {
       ref={drop}
       className={` border ${
         index === 0 ? "col-span-2 row-span-2" : "col-span-1"
-      } ${isOver ? " border-blue-300 border-2 scale-105" : ""} `}
+      } ${
+        isOver ? " border-blue-300 border-2 scale-105" : ""
+      } group hover:bg-black/30`}
     >
       <div
         data-index={index}
         ref={dropTargetRef}
-        className="relative group h-full "
+        className="relative  h-full  "
       >
         <div className="absolute -top-12 lg:-top-5 lg:left-5 h-3 z-50 ">
           <Checkbox
@@ -56,11 +58,12 @@ export default function ImageItem({ item, index }) {
           ref={drag}
           className={`${
             selectedImages?.includes(item.id) ? "contrast-50" : ""
-          } object-cover h-full main-content `}
+          } object-cover h-full main-content group-hover:brightness-50
+
+          `}
           src={item.imageUrl}
           alt=""
         />
-        <div className="absolute top-0 left-0 h-full w-full bg-black/30 z-20"></div>
       </div>
     </div>
   );
