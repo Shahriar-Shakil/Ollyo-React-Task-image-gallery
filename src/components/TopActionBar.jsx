@@ -16,17 +16,21 @@ export default function TopActionBar() {
   return (
     <div className="h-16 flex justify-between items-center">
       <div>
-        <div className="flex gap-2 items-center">
-          <Checkbox
-            checked={selectedImages?.length}
-            onChange={handleBulkMark}
-            className=""
-            title={selectedImages?.length ? "Unmark All" : "Mark All"}
-          />
-          <p className="text-black leading-4 font-bold">
-            {selectedImages?.length} Files Selected
-          </p>
-        </div>
+        {selectedImages?.length ? (
+          <div className="flex gap-2 items-center">
+            <Checkbox
+              checked={selectedImages?.length}
+              onChange={handleBulkMark}
+              className=""
+              title={selectedImages?.length ? "Unmark All" : "Mark All"}
+            />
+            <p className="text-black leading-4 font-bold">
+              {selectedImages?.length} Files Selected
+            </p>
+          </div>
+        ) : (
+          <h2 className="text-black leading-4 font-bold">Gallery</h2>
+        )}
       </div>
       {selectedImages?.length ? (
         <button
