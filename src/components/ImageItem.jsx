@@ -53,17 +53,30 @@ export default function ImageItem({ item, index }) {
             onChange={(e) => handleOnSelect(item.id, e.target.checked)}
           ></Checkbox>
         </div>
-        <img
-          draggable={index === 0 ? false : true}
-          ref={index === 0 ? null : drag}
-          className={`${
-            selectedImages?.includes(item.id) ? "contrast-50" : ""
-          } object-cover h-full main-content group-hover:brightness-50
+        {index === 0 ? (
+          <img
+            draggable="false"
+            className={`${
+              selectedImages?.includes(item.id) ? "contrast-50" : ""
+            } object-cover h-full main-content group-hover:brightness-50
 
           `}
-          src={item.imageUrl}
-          alt=""
-        />
+            src={item.imageUrl}
+            alt=""
+          />
+        ) : (
+          <img
+            draggable="true"
+            ref={drag}
+            className={`${
+              selectedImages?.includes(item.id) ? "contrast-50" : ""
+            } object-cover h-full main-content group-hover:brightness-50
+
+          `}
+            src={item.imageUrl}
+            alt=""
+          />
+        )}
       </div>
     </div>
   );
